@@ -1,0 +1,133 @@
+body {
+    width: auto;
+    height: 100vh;
+    font-family: fantasy;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+#container{
+    width: 320px;
+    height: 420px;
+    margin: auto;
+    border: 1px solid #999;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px #555;
+    display: block;
+}
+
+#system{
+    margin: 10px 0px 0px 0px;
+}
+
+.display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.display_style{
+    width: 80px;
+    height: 100px;
+    padding: 3px;
+    margin: 5px 12px 10px 12px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px #555;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+#system_value{
+    background-image: url('./IMG/question.jpg');
+}
+
+#pap{
+    background-image: url('./IMG/paper.jpg');
+}
+
+#sci{
+    background-image: url('./IMG/scissor.jpg');
+}
+
+#sto{
+    background-image: url('./IMG/stone.jpg');
+}
+
+#result_show{
+    width: 80px;
+    padding: 5px;
+    margin: 5px auto;
+    background: #2a59ff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 7px #00f;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #eee;
+}
+
+#control{
+    margin: auto;
+    text-align: center;
+}
+
+input{
+    background: none;
+    width: 80px;
+    margin: 5px 7px;
+    padding: 4px;
+    font-size: 16px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-family: fantasy;
+    font-weight: bold;
+    color: #eee;
+    text-shadow: 0px 0px 3px #555;
+}
+
+#again,#yes{
+    background: #0f0;
+    box-shadow: 0px 0px 5px #0f0;
+}
+
+.exit,#no{
+    background: #f13;
+    box-shadow: 0px 0px 3px #f13;
+}
+
+p,h5,.p{
+    background: #eee;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    text-align: center;
+    padding: 2px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
+}
+
+p{
+    margin: 7px;
+}
+
+h5{
+    margin: 5px;
+}
+
+.p{
+    padding: 5px;
+}
+
+#exit{
+    width: 300px;
+    padding: 5px;
+    border: 1px solid #999;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px #555;
+    display: none;
+}
