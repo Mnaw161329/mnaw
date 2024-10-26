@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morse Code Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1a1a2e;
+      color: gray;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 400px;
+      background-color: #16213e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    h2 {
+      color: #ff9f1c;
+      font-size: 24px;
+    }
+
+    .morse-btn, .control-btn {
+      background-color: #ff9f1c;
+      color: #16213e;
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .morse-btn:hover, .control-btn:hover {
+      background-color: #ffb347;
+    }
+
+    .display-box {
+      margin: 15px 0;
+      padding: 0px 10px;
+      background-color: #0f3460;
+      color: #ccc;
+      font-size: 16px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      max-width: 300px;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 0px;
+      padding: 0px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Morse Code Converter</h2>
+
+  <div class="button-row">
+    <button id="clearBtn" class="control-btn">Clear</button>
+    <button id="deleteLastBtn" class="control-btn">Back</button>
+  </div>
+
+  <div class="display-box">
+    <div id="morseDisplay">Marse Code</div>
+  </div>
+
+  <div class="display-box">
+    <div id="textDisplay">Message</div>
+  </div>
+
+  <button id="morseBtn" class="morse-btn">●●</button>
+</div>
+
+<script>
+// Morse code dictionary for conversion
+const morseCode = {
+  '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E', '..-.': 'F',
+  '--.': 'G', '....': 'H', '..': 'I', '.---': 'J', '-.-': 'K', '.-..': 'L',
+  '--': 'M', '-.': 'N', '---': 'O', '.--.': 'P', '--.-': 'Q', '.-.': 'R',
+  '...': 'S', '-': 'T', '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X',
+  '-.--': 'Y', '--..': 'Z', '-----': '0', '.----': '1', '..---': '2',
+  '...--': '3', '....-': '4', '.....': '5', '-....': '6', '--...': '7',
+  '---..': '8', '----.': '9', '..--' : " "
+};
+
+// Variables to track Morse sequence and translation
+let pressStartTime, morseSequence = '', translatedText = '';
+let translationTimeout;
+
+// Elements for Morse code and translation display
+const morseDisplay = document.getElementById('morseDisplay');
+const textDisplay = document.getElementById('textDisplay');
+
+// Button elements and event listeners
+const morseBtn = document.getElementById('morseBtn');
+morseBtn.addEventListener('mousedown', startPress);
+morseBtn.addEventListener('mouseup', endPress);
+
+document.getElementById('deleteLastBtn').addEventListener('click', deleteLastLetter);
+document.getElementById('clearBtn').addEventListener('click', clearAll);
+
+// Start recording press duration
+function startPress() {
+  pressStartTime = new Date().getTime();
+  clearTimeout(translationTimeout);  // Clear any pending translation
+}
+
+// Determine dot or dash on release, and update display
+function endPress() {
+  const pressDuration = new Date().getTime() - pressStartTime;
+  morseSequence += (pressDuration < 220) ? '.' : '-';  // Dot for short press, dash for long press
+  morseDisplay.innerText = morseSequence;
+  autoTranslate();
+}
+
+// Auto-translate when no input is detected for a while
+function autoTranslate() {
+  translationTimeout = setTimeout(() => {
+    const translatedChar = morseCode[morseSequence.trim()];
+    if (translatedChar) {
+      translatedText += translatedChar;
+      textDisplay.innerText = translatedText;
+    }
+    morseSequence = '';  // Clear current Morse sequence after translation
+    morseDisplay.innerText = ' ';
+  }, 500);  // Wait 500ms for potential next input
+}
+
+// Delete the last letter from the translated text
+function deleteLastLetter() {
+  if (translatedText.length > 0) {
+    translatedText = translatedText.slice(0, -1);  // Remove the last character
+    textDisplay.innerText = translatedText;  // Update display
+  }
+}
+
+// Clear all current input and reset displays
+function clearAll() {
+  morseSequence = '';
+  translatedText = '';
+  morseDisplay.innerText = ' ';
+  textDisplay.innerText = ' ';
+}
+</script>
+
+</body>
+</html>
