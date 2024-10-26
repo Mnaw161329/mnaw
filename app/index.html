@@ -130,7 +130,7 @@ function startPress(event) {
 function endPress(event) {
   event.preventDefault();  // Prevent default to handle touch events
   const pressDuration = new Date().getTime() - pressStartTime;
-  morseSequence += (pressDuration < 220) ? '.' : '-';  // Dot for short press, dash for long press
+  morseSequence += (pressDuration < 300) ? '.' : '-';  // Dot for short press, dash for long press
   morseDisplay.innerText = morseSequence;
   autoTranslate();
 }
@@ -167,4 +167,5 @@ function clearAll() {
 
 </body>
 </html>
+
 
