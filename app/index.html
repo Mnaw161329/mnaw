@@ -13,10 +13,9 @@
       flex-direction: column;
       align-items: center;
       margin: 0;
-      padding: 80px;
+      padding: 20px;
       user-select: none;
       -webkit-user-select: none;
-
     }
 
     .container {
@@ -80,7 +79,7 @@
   </div>
 
   <div class="display-box">
-    <div id="morseDisplay">Marse Code</div>
+    <div id="morseDisplay">Morse Code</div>
   </div>
 
   <div class="display-box">
@@ -114,18 +113,22 @@ const textDisplay = document.getElementById('textDisplay');
 const morseBtn = document.getElementById('morseBtn');
 morseBtn.addEventListener('mousedown', startPress);
 morseBtn.addEventListener('mouseup', endPress);
+morseBtn.addEventListener('touchstart', startPress);
+morseBtn.addEventListener('touchend', endPress);
 
 document.getElementById('deleteLastBtn').addEventListener('click', deleteLastLetter);
 document.getElementById('clearBtn').addEventListener('click', clearAll);
 
 // Start recording press duration
-function startPress() {
+function startPress(event) {
+  event.preventDefault();  // Prevent default to handle touch events
   pressStartTime = new Date().getTime();
   clearTimeout(translationTimeout);  // Clear any pending translation
 }
 
 // Determine dot or dash on release, and update display
-function endPress() {
+function endPress(event) {
+  event.preventDefault();  // Prevent default to handle touch events
   const pressDuration = new Date().getTime() - pressStartTime;
   morseSequence += (pressDuration < 220) ? '.' : '-';  // Dot for short press, dash for long press
   morseDisplay.innerText = morseSequence;
@@ -164,3 +167,4 @@ function clearAll() {
 
 </body>
 </html>
+
